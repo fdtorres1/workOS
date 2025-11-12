@@ -14,14 +14,35 @@ WorkOS is a comprehensive CRM platform with integrated Lead-Gen, Projects, Knowl
 ├── PHASE1-BUILD-PLAN.md      # Detailed Phase 1 build plan
 ├── CODE-STUBS.md             # Implementation code examples
 ├── README.md                 # This file
+├── docs/                     # Comprehensive documentation
+│   ├── README.md             # Documentation index
+│   ├── ARCHITECTURE.md       # System architecture
+│   ├── API.md                # API documentation
+│   ├── DATABASE.md           # Database schema reference
+│   ├── DEVELOPMENT.md        # Development setup guide
+│   ├── ENVIRONMENT.md        # Environment variables
+│   ├── INTEGRATIONS.md        # Integration setup guides
+│   ├── TESTING.md            # Testing guide
+│   └── SECURITY.md           # Security guidelines
 └── [future implementation files]
 ```
 
 ## Documentation
 
+### Core Documents
 - **[PRD.md](./PRD.md)** - Complete Product Requirements Document for WorkOS v1.0
 - **[PHASE1-BUILD-PLAN.md](./PHASE1-BUILD-PLAN.md)** - Detailed build plan for Phase 1 (CRM + Prospecting)
 - **[CODE-STUBS.md](./CODE-STUBS.md)** - Code implementation examples for key integrations
+
+### Comprehensive Guides
+- **[Documentation Index](./docs/README.md)** - Start here for all documentation
+- **[Development Setup](./docs/DEVELOPMENT.md)** - Complete development environment setup
+- **[Architecture](./docs/ARCHITECTURE.md)** - System architecture and design
+- **[API Reference](./docs/API.md)** - REST API endpoints and webhooks
+- **[Database Schema](./docs/DATABASE.md)** - Complete database schema with RLS
+- **[Integration Guides](./docs/INTEGRATIONS.md)** - Gmail and Twilio setup
+- **[Testing Guide](./docs/TESTING.md)** - Unit, integration, and E2E testing
+- **[Security Guidelines](./docs/SECURITY.md)** - Security best practices
 
 ## Project Management
 
@@ -55,7 +76,10 @@ Track progress in [GitHub Project: WorkOS v1.0](https://github.com/users/fdtorre
 
 ## Getting Started
 
-See [PHASE1-BUILD-PLAN.md](./PHASE1-BUILD-PLAN.md) for complete setup instructions.
+1. **Read the PRD:** Start with [PRD.md](./PRD.md) to understand the product vision
+2. **Review Build Plan:** See [PHASE1-BUILD-PLAN.md](./PHASE1-BUILD-PLAN.md) for implementation details
+3. **Setup Development:** Follow [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md) for local setup
+4. **Explore Documentation:** Check [docs/README.md](./docs/README.md) for all available guides
 
 ### Quick Start
 
@@ -79,6 +103,7 @@ npx supabase db push
 - ✅ Repository created
 - ✅ PRD documented
 - ✅ Phase 1 build plan ready
+- ✅ Comprehensive documentation created
 - 🚧 Implementation in progress
 
 ## License
