@@ -1,0 +1,23 @@
+{
+  "name": "workos",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "start": "pnpm --filter web start",
+    "lint": "pnpm --filter web lint",
+    "type-check": "pnpm --filter web type-check",
+    "db:reset": "supabase db reset",
+    "db:push": "supabase db push",
+    "db:migrate": "supabase migration new"
+  },
+  "devDependencies": {
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}
