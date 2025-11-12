@@ -29,6 +29,7 @@ export default function LoginPage() {
     const data = await response.json();
 
     if (response.ok) {
+      // Reload to refresh server-side session
       window.location.href = '/dashboard';
     } else {
       setError(data.error?.message || 'Login failed');

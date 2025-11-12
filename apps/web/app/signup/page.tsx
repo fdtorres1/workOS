@@ -30,6 +30,7 @@ export default function SignupPage() {
     const data = await response.json();
 
     if (response.ok) {
+      // Reload to refresh server-side session
       window.location.href = '/dashboard';
     } else {
       setError(data.error?.message || 'Signup failed');
