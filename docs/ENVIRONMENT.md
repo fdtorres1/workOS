@@ -11,8 +11,12 @@ This document lists all environment variables used in WorkOS, organized by categ
 | Variable | Description | Example | Required |
 |----------|-------------|---------|----------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | `https://xxx.supabase.co` | Yes |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous key (public) | `eyJhbGc...` | Yes |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (server-only) | `eyJhbGc...` | Yes |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase publishable key (new, client-safe) | `sb_publishable_...` | Yes* |
+| `SUPABASE_SECRET_KEY` | Supabase secret key (new, server-only) | `sb_secret_...` | Yes* |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Legacy anon key (backward compatibility) | `eyJhbGc...` | No |
+| `SUPABASE_SERVICE_ROLE_KEY` | Legacy service role key (backward compatibility) | `eyJhbGc...` | No |
+
+*Either use new keys (recommended) or legacy keys. The code supports both.
 
 **Security Note:** Never expose `SUPABASE_SERVICE_ROLE_KEY` in client-side code. It bypasses RLS.
 
