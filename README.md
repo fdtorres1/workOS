@@ -23,7 +23,14 @@ WorkOS is a comprehensive CRM platform with integrated Lead-Gen, Projects, Knowl
 │   ├── ENVIRONMENT.md        # Environment variables
 │   ├── INTEGRATIONS.md        # Integration setup guides
 │   ├── TESTING.md            # Testing guide
-│   └── SECURITY.md           # Security guidelines
+│   ├── SECURITY.md           # Security guidelines
+│   └── SUPABASE_NEW_KEYS.md  # Supabase new API keys guide
+├── supabase/                 # Supabase configuration
+│   ├── config.toml          # Supabase local config
+│   └── migrations/          # Database migrations
+├── apps/web/                # Next.js application
+│   └── .env.local           # Environment variables (create from .env.example)
+└── SETUP_REMOTE_SUPABASE.md  # Remote Supabase setup guide
 └── [future implementation files]
 ```
 
@@ -43,6 +50,10 @@ WorkOS is a comprehensive CRM platform with integrated Lead-Gen, Projects, Knowl
 - **[Integration Guides](./docs/INTEGRATIONS.md)** - Gmail and Twilio setup
 - **[Testing Guide](./docs/TESTING.md)** - Unit, integration, and E2E testing
 - **[Security Guidelines](./docs/SECURITY.md)** - Security best practices
+- **[Supabase New Keys](./docs/SUPABASE_NEW_KEYS.md)** - Migration guide for new API keys
+
+### Setup Guides
+- **[Remote Supabase Setup](./SETUP_REMOTE_SUPABASE.md)** - Connect to hosted Supabase
 
 ## Project Management
 
@@ -78,8 +89,9 @@ Track progress in [GitHub Project: WorkOS v1.0](https://github.com/users/fdtorre
 
 1. **Read the PRD:** Start with [PRD.md](./PRD.md) to understand the product vision
 2. **Review Build Plan:** See [PHASE1-BUILD-PLAN.md](./PHASE1-BUILD-PLAN.md) for implementation details
-3. **Setup Development:** Follow [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md) for local setup
-4. **Explore Documentation:** Check [docs/README.md](./docs/README.md) for all available guides
+3. **Setup Supabase:** Follow [SETUP_REMOTE_SUPABASE.md](./SETUP_REMOTE_SUPABASE.md) to connect to your Supabase project
+4. **Setup Development:** Follow [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md) for local setup
+5. **Explore Documentation:** Check [docs/README.md](./docs/README.md) for all available guides
 
 ### Quick Start
 
@@ -87,24 +99,35 @@ Track progress in [GitHub Project: WorkOS v1.0](https://github.com/users/fdtorre
 # Prerequisites
 Node 20+, pnpm, Supabase CLI
 
-# Scaffold
-pnpm create next-app@latest web --ts --eslint --tailwind --app
-cd web
-pnpm add @supabase/supabase-js zod react-hook-form class-variance-authority lucide-react twilio googleapis
-pnpm dlx shadcn@latest init
+# Install dependencies
+pnpm install
 
-# Supabase
-npx supabase init
-npx supabase db push
+# Link to remote Supabase (if not already done)
+supabase link --project-ref <your-project-ref>
+
+# Push migrations
+supabase db push
+
+# Setup environment variables
+cp apps/web/.env.example apps/web/.env.local
+# Edit apps/web/.env.local with your Supabase keys
+
+# Start development server
+pnpm dev
 ```
 
 ## Status
 
-- ✅ Repository created
+- ✅ Repository created and configured
 - ✅ PRD documented
 - ✅ Phase 1 build plan ready
 - ✅ Comprehensive documentation created
-- 🚧 Implementation in progress
+- ✅ Next.js app structure initialized
+- ✅ Supabase linked and migrations pushed
+- ✅ Database schema with RLS policies deployed
+- ✅ Supabase new API keys support integrated
+- 🚧 Frontend implementation in progress
+- 🚧 API routes implementation in progress
 
 ## License
 

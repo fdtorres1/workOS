@@ -28,6 +28,10 @@ Welcome to the WorkOS documentation. This directory contains comprehensive guide
 ### Operations
 - **[Security Guidelines](./SECURITY.md)** - Security best practices
 - **[Environment Variables](./ENVIRONMENT.md)** - Configuration reference
+- **[Supabase New Keys](./SUPABASE_NEW_KEYS.md)** - Migration guide for new API keys
+
+### Setup Guides
+- **[Remote Supabase Setup](../SETUP_REMOTE_SUPABASE.md)** - Connect to hosted Supabase instance
 
 ## Quick Links
 
