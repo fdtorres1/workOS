@@ -15,9 +15,33 @@ export async function createServerClient() {
   const cookieStore = await cookies();
   
   return createClient(supabaseUrl, supabasePublishableKey, {
-    cookies: {
-      get(name: string) {
-        return cookieStore.get(name)?.value;
+    auth: {
+      storage: {
+        getItem: (key: string) => {
+          // Try Supabase's default cookie names first
+          const value = cookieStore.get(key)?.value;
+          if (value) return value;
+          
+          // Fallback to our custom cookie names
+          if (key.includes('access-token')) {
+            return cookieStore.get('sb-access-token')?.value;
+          }
+          if (key.includes('refresh-token')) {
+            return cookieStore.get('sb-refresh-token')?.value;
+          }
+          return null;
+        },
+        setItem: (key: string, value: string) => {
+          cookieStore.set(key, value, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            path: '/',
+          });
+        },
+        removeItem: (key: string) => {
+          cookieStore.delete(key);
+        },
       },
     },
   });
