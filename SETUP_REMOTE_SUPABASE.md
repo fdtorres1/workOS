@@ -13,16 +13,22 @@
 
 2. Copy the following values:
    - **Project URL** (under "Project URL" section)
-   - **anon public key** (under "Project API keys" → "anon" → "public")
-   - **service_role key** (under "Project API keys" → "service_role" → "secret") ⚠️ Keep this secret!
+   - **Publishable key** (sb_publishable_...) - Safe for client-side use
+   - **Secret key** (sb_secret_...) - Server-side only, keep secret! ⚠️
 
-3. Create `apps/web/.env.local` file with:
+   Note: If you see legacy "anon" and "service_role" keys, those still work but the new keys are recommended.
+
+3. Update `apps/web/.env.local` file with:
 
 ```bash
-# Supabase (Remote)
+# Supabase (Remote) - Using New API Keys
 NEXT_PUBLIC_SUPABASE_URL=https://vfwwhsguxixpjqfzhurz.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxxxx
+SUPABASE_SECRET_KEY=sb_secret_xxxxx
+
+# Legacy keys (optional - for backward compatibility)
+# NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
+# SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
 
 # Google OAuth (Gmail) - Add later
 GOOGLE_CLIENT_ID=
@@ -70,6 +76,11 @@ You should see all the tables we created:
 ## 🔒 Security Note
 
 - Never commit `.env.local` to git (it's in `.gitignore`)
-- The `service_role` key bypasses RLS - keep it secret!
-- Only use `service_role` key in server-side code
+- The `SUPABASE_SECRET_KEY` (or legacy `service_role` key) bypasses RLS - keep it secret!
+- Only use secret keys in server-side code
+- Publishable keys are safe for client-side use
+
+## 📚 New API Keys
+
+WorkOS now supports Supabase's new API key system. See [docs/SUPABASE_NEW_KEYS.md](./docs/SUPABASE_NEW_KEYS.md) for details.
 
