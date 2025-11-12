@@ -73,9 +73,10 @@ CREATE TABLE people (
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
   email TEXT,
-  phone TEXT,
+  phone TEXT, -- E.164 format: +1234567890
   title TEXT,
   linkedin_url TEXT,
+  birthdate DATE,
   tags TEXT[] DEFAULT '{}',
   owner_id UUID REFERENCES org_members(id) ON DELETE SET NULL,
   last_contacted_at TIMESTAMPTZ,

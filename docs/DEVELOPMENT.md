@@ -167,6 +167,9 @@ workOS/
 │       │       └── deals/      # Deals Kanban
 │       ├── components/         # React components
 │       │   ├── ui/             # shadcn/ui components
+│       │   │   ├── date-picker.tsx    # Date picker component
+│       │   │   ├── phone-input.tsx    # Phone input with country selector
+│       │   │   └── company-select.tsx  # Searchable company selector
 │       │   └── layout/         # Layout components (Sidebar, AppLayout)
 │       ├── lib/                # Utilities, helpers
 │       │   ├── supabase/       # Supabase client (client, server, admin)

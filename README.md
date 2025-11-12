@@ -135,6 +135,10 @@ pnpm dev
 - ✅ Enhanced dashboard UI with KPI cards and activity timeline
 - ✅ Auto-organization creation for new users
 - ✅ Supabase SSR integration with cookie-based sessions
+- ✅ Person form with birthdate, phone validation, and company search
+- ✅ Custom UI components (DatePicker, PhoneInput, CompanySelect)
+- ✅ Phone number validation with country code selector (defaults to US +1)
+- ✅ Searchable company selector with "Add Company" functionality
 - 🚧 Gmail integration (pending)
 - 🚧 Twilio integration (pending)
 - 🚧 Domain events and webhooks (pending)

@@ -10,9 +10,10 @@ const CreatePersonSchema = z.object({
   firstName: z.string().min(1).max(100),
   lastName: z.string().min(1).max(100),
   email: z.string().email().optional(),
-  phone: z.string().regex(/^\+?[1-9]\d{1,14}$/).optional(),
+  phone: z.string().regex(/^\+[1-9]\d{1,14}$/).optional(), // E.164 format: +1234567890
   title: z.string().max(100).optional(),
   companyId: z.string().uuid().optional(),
+  birthdate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(), // YYYY-MM-DD format
   tags: z.array(z.string()).optional(),
 });
 
@@ -97,6 +98,7 @@ export async function POST(req: NextRequest) {
         phone: input.phone,
         title: input.title,
         company_id: input.companyId,
+        birthdate: input.birthdate || null,
         tags: input.tags || [],
       })
       .select()

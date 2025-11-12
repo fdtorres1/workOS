@@ -2,6 +2,32 @@
 
 ## Authentication
 
+### Get Current User and Organization
+
+**Get Current User**
+```
+GET /api/auth/me
+```
+
+Returns the current authenticated user and their organization information. Requires a valid session cookie.
+
+**Response:**
+```json
+{
+  "data": {
+    "user": {
+      "id": "uuid",
+      "email": "user@example.com",
+      "metadata": {}
+    },
+    "org": {
+      "orgId": "uuid",
+      "role": "owner" | "admin" | "member"
+    }
+  }
+}
+```
+
 ### API Keys
 All API requests require an API key in the `Authorization` header:
 
@@ -59,9 +85,10 @@ Body: {
   firstName: string
   lastName: string
   email?: string
-  phone?: string
+  phone?: string (E.164 format: +1234567890)
   companyId?: string
   title?: string
+  birthdate?: string (YYYY-MM-DD format)
   tags?: string[]
 }
 ```
