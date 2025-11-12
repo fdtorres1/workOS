@@ -132,10 +132,20 @@ Follow the prompts to configure:
 ### 7. Start Development Server
 
 ```bash
+# From project root
+pnpm dev
+
+# Or from apps/web directory
+cd apps/web
 pnpm dev
 ```
 
 Visit http://localhost:3000
+
+**Note:** Make sure you have:
+- ✅ `.env.local` file in `apps/web/` with Supabase credentials
+- ✅ Supabase project linked (`supabase link --project-ref <ref>`)
+- ✅ Migrations pushed (`supabase db push`)
 
 ## Project Structure
 
