@@ -15,15 +15,18 @@ export async function POST(req: NextRequest) {
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
     
     const cookieStore = await cookies();
+    const cookiesToSet: Array<{ name: string; value: string; options?: any }> = [];
+    
     const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
       cookies: {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options)
-          );
+        setAll(cookiesToSetArray) {
+          cookiesToSetArray.forEach(({ name, value, options }) => {
+            cookieStore.set(name, value, options);
+            cookiesToSet.push({ name, value, options });
+          });
         },
       },
     });
@@ -43,11 +46,27 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    return NextResponse.json({
+    if (!data.session) {
+      return NextResponse.json(
+        { error: { message: 'No session created' } },
+        { status: 401 }
+      );
+    }
+
+    // Return response with cookies included
+    const jsonResponse = NextResponse.json({
       data: {
         user: data.user,
+        session: data.session,
       },
     });
+    
+    // Apply all cookies that were set during authentication
+    cookiesToSet.forEach(({ name, value, options }) => {
+      jsonResponse.cookies.set(name, value, options);
+    });
+    
+    return jsonResponse;
   } catch (error) {
     return createErrorResponse(error);
   }

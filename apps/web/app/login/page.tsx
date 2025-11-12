@@ -5,11 +5,29 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const errorParam = searchParams.get('error');
+    if (errorParam) {
+      const errorMessages: Record<string, string> = {
+        email_confirmation_failed: 'Email confirmation failed. Please try again or request a new confirmation email.',
+        invalid_confirmation_link: 'Invalid confirmation link. Please request a new one.',
+        session_failed: 'Failed to create session. Please try logging in again.',
+        verification_failed: 'Email verification failed. Please try again.',
+        invalid_callback: 'Invalid callback. Please try logging in.',
+        org_creation_failed: 'Failed to create your organization. Please contact support.',
+        org_check_failed: 'Failed to verify your organization. Please try logging in again.',
+      };
+      setError(errorMessages[errorParam] || 'An error occurred. Please try again.');
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

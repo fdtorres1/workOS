@@ -30,8 +30,14 @@ export default function SignupPage() {
     const data = await response.json();
 
     if (response.ok) {
-      // Reload to refresh server-side session
-      window.location.href = '/dashboard';
+      // Check if email confirmation is required
+      if (data.data?.requiresConfirmation) {
+        setError('Please check your email to confirm your account before signing in.');
+        setLoading(false);
+      } else {
+        // Session created - reload to refresh server-side session
+        window.location.href = '/dashboard';
+      }
     } else {
       setError(data.error?.message || 'Signup failed');
       setLoading(false);

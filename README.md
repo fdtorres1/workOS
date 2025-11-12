@@ -61,10 +61,11 @@ Track progress in [GitHub Project: WorkOS v1.0](https://github.com/users/fdtorre
 
 ## Tech Stack
 
-- **Frontend:** Next.js (App Router), TypeScript, Tailwind CSS, shadcn/ui
+- **Frontend:** Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS, shadcn/ui
 - **Backend:** Supabase (PostgreSQL, Auth, RLS, Edge Functions)
 - **Integrations:** Google Gmail API, Twilio Voice & Messaging
 - **Deployment:** Vercel (web) + Supabase (DB/Functions)
+- **UI Components:** shadcn/ui with Lucide React icons
 
 ## Phase 1 Scope
 
@@ -129,7 +130,11 @@ pnpm dev
 - ✅ shadcn/ui components set up
 - ✅ API routes implemented (People, Companies, Deals)
 - ✅ Frontend pages created (Dashboard, People, Companies, Deals)
-- ✅ Authentication structure in place
+- ✅ Authentication with email confirmation support
+- ✅ Sidebar navigation with collapse/expand toggle
+- ✅ Enhanced dashboard UI with KPI cards and activity timeline
+- ✅ Auto-organization creation for new users
+- ✅ Supabase SSR integration with cookie-based sessions
 - 🚧 Gmail integration (pending)
 - 🚧 Twilio integration (pending)
 - 🚧 Domain events and webhooks (pending)

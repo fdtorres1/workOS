@@ -37,7 +37,14 @@ WorkOS is built as a modular, multi-tenant SaaS platform with the following arch
 
 ### Authentication Flow
 ```
-User → Supabase Auth → JWT Token → RLS Policies → Data Access
+User → Signup/Login → Supabase Auth → Email Confirmation (if enabled) → 
+JWT Token → Session Cookies → RLS Policies → Data Access
+```
+
+### Organization Creation Flow
+```
+User Signup → Auto-create Organization → Add User as Owner → 
+Ensure Org on Dashboard Access (fallback)
 ```
 
 ### Email Send Flow
@@ -57,9 +64,15 @@ Emit Event → Webhook Delivery
 
 ### `/apps/web`
 - **`/app`** - Next.js App Router pages
-- **`/app/api`** - API route handlers
-- **`/components`** - Reusable UI components (shadcn/ui)
+  - `/(dashboard)` - Dashboard pages with sidebar layout
+  - `/api` - API route handlers
+  - `/auth` - Authentication callback handlers
+- **`/components`** - Reusable UI components
+  - `/ui` - shadcn/ui components (Card, Button, Badge, etc.)
+  - `/layout` - Layout components (Sidebar, AppLayout)
 - **`/lib`** - Shared utilities, Supabase client, helpers
+  - `/supabase` - Supabase client initialization (client, server, admin)
+  - `/api` - API helpers (auth, errors)
 - **`/modules`** - Feature modules:
   - `crm` - CRM core functionality
   - `prospecting` - Lead generation

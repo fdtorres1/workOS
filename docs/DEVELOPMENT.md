@@ -155,11 +155,22 @@ workOS/
 │   └── web/                    # Next.js application
 │       ├── app/                # App Router pages
 │       │   ├── api/            # API routes
-│       │   ├── (auth)/         # Auth pages
-│       │   └── (dashboard)/    # Dashboard pages
+│       │   │   ├── auth/       # Authentication routes
+│       │   │   ├── people/     # People CRUD
+│       │   │   ├── companies/  # Companies CRUD
+│       │   │   └── deals/      # Deals CRUD
+│       │   ├── auth/           # Auth callback pages
+│       │   └── (dashboard)/    # Dashboard pages with sidebar
+│       │       ├── dashboard/  # Dashboard page
+│       │       ├── people/     # People list/detail
+│       │       ├── companies/  # Companies list
+│       │       └── deals/      # Deals Kanban
 │       ├── components/         # React components
+│       │   ├── ui/             # shadcn/ui components
+│       │   └── layout/         # Layout components (Sidebar, AppLayout)
 │       ├── lib/                # Utilities, helpers
-│       │   ├── supabase/       # Supabase client
+│       │   ├── supabase/       # Supabase client (client, server, admin)
+│       │   ├── api/            # API helpers (auth, errors)
 │       │   └── utils/          # Shared utilities
 │       ├── modules/            # Feature modules
 │       │   ├── crm/           # CRM functionality

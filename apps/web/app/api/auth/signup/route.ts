@@ -17,15 +17,18 @@ export async function POST(req: NextRequest) {
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
     
     const cookieStore = await cookies();
+    const cookiesToSet: Array<{ name: string; value: string; options?: any }> = [];
+    
     const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
       cookies: {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options)
-          );
+        setAll(cookiesToSetArray) {
+          cookiesToSetArray.forEach(({ name, value, options }) => {
+            cookieStore.set(name, value, options);
+            cookiesToSet.push({ name, value, options });
+          });
         },
       },
     });
@@ -41,6 +44,7 @@ export async function POST(req: NextRequest) {
         data: {
           full_name: name,
         },
+        emailRedirectTo: `${req.nextUrl.origin}/auth/callback?next=/dashboard`,
       },
     });
 
@@ -59,6 +63,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Create a default organization for the user (using admin client to bypass RLS)
+    // This should happen regardless of whether email confirmation is required
     const slug = `${name.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}`;
     const { data: org, error: orgError } = await supabaseAdmin
       .from('orgs')
@@ -73,18 +78,45 @@ export async function POST(req: NextRequest) {
       console.error('Failed to create org:', orgError);
     } else {
       // Add user as owner of the org (using admin client)
-      await supabaseAdmin.from('org_members').insert({
+      const { error: memberError } = await supabaseAdmin.from('org_members').insert({
         org_id: org.id,
         user_id: authData.user.id,
         role: 'owner',
       });
+      
+      if (memberError) {
+        console.error('Failed to add user to org:', memberError);
+      }
     }
 
-    return NextResponse.json({
+    // Check if email confirmation is required
+    if (!authData.session) {
+      // Email confirmation required - return success but indicate confirmation needed
+      return NextResponse.json(
+        {
+          data: {
+            user: authData.user,
+            requiresConfirmation: true,
+          },
+        },
+        { status: 200 }
+      );
+    }
+
+    // Return response with cookies included
+    const jsonResponse = NextResponse.json({
       data: {
         user: authData.user,
+        session: authData.session,
       },
     });
+    
+    // Apply all cookies that were set during authentication
+    cookiesToSet.forEach(({ name, value, options }) => {
+      jsonResponse.cookies.set(name, value, options);
+    });
+    
+    return jsonResponse;
   } catch (error) {
     return createErrorResponse(error);
   }
